@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Atlas Massacre | Bunny & Cat Garden Attack</title>
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background: #0a0a0f;
+      color: #e8e8e8;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    header {
+      text-align: center;
+      padding: 3rem 1.5rem 1.5rem;
+      max-width: 720px;
+    }
+
+    h1 {
+      font-size: clamp(1.6rem, 5vw, 2.6rem);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      background: linear-gradient(135deg, #f97316, #ec4899, #8b5cf6);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .subtitle {
+      margin-top: 0.6rem;
+      font-size: 1.05rem;
+      color: #888;
+      font-weight: 400;
+    }
+
+    main {
+      width: 100%;
+      max-width: 860px;
+      padding: 1rem 1.5rem 3rem;
+    }
+
+    .video-wrap {
+      position: relative;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow:
+        0 0 0 1px rgba(255,255,255,0.06),
+        0 20px 60px rgba(0,0,0,0.5),
+        0 0 80px rgba(139,92,246,0.08);
+    }
+
+    video {
+      display: block;
+      width: 100%;
+      height: auto;
+      background: #000;
+    }
+
+    footer {
+      margin-top: auto;
+      padding: 2rem 1.5rem;
+      text-align: center;
+      font-size: 0.85rem;
+      color: #555;
+    }
+
+    footer a {
+      color: #8b5cf6;
+      text-decoration: none;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Bunny & Cat: Garden Attack</h1>
+    <p class="subtitle">An animated short about an unlikely duo defending their garden</p>
+  </header>
+
+  <main>
+    <div class="video-wrap">
+      <video controls autoplay muted loop playsinline>
+        <source src="Bunny_and_Cat_Garden_Attack_Video.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+    </div>
+  </main>
+
+  <footer>
+    <p>View on <a href="https://github.com/jrsherlock/atlas-massacre">GitHub</a></p>
+  </footer>
+
+</body>
+</html>
