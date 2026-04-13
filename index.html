@@ -194,9 +194,6 @@
 </head>
 <body>
 
-  <!-- Hidden video used to capture a poster frame -->
-  <video id="src-video" src="atlas-blood.mp4" muted preload="auto" style="display:none;"></video>
-
   <header>
     <h1>The Atlas Chronicles</h1>
     <p class="subtitle">A choose-your-own-adventure experience</p>
@@ -206,7 +203,7 @@
     <!-- SCENE 1: Poster + Choices -->
     <div id="scene-choice" class="scene">
       <div class="poster-wrap">
-        <canvas id="poster"></canvas>
+        <img id="poster" src="poster.png" alt="Atlas the cat sitting in a flower pot">
       </div>
 
       <div class="choices">
@@ -246,23 +243,9 @@
   </footer>
 
   <script>
-    const srcVideo = document.getElementById('src-video');
-    const canvas = document.getElementById('poster');
-    const ctx = canvas.getContext('2d');
     const sceneChoice = document.getElementById('scene-choice');
     const sceneVideo = document.getElementById('scene-video');
     const player = document.getElementById('player');
-
-    // Capture first frame as poster image
-    srcVideo.addEventListener('loadeddata', () => {
-      srcVideo.currentTime = 0.5;
-    });
-
-    srcVideo.addEventListener('seeked', () => {
-      canvas.width = srcVideo.videoWidth;
-      canvas.height = srcVideo.videoHeight;
-      ctx.drawImage(srcVideo, 0, 0, canvas.width, canvas.height);
-    });
 
     function playVideo() {
       sceneChoice.classList.add('fade-out');
@@ -278,7 +261,6 @@
       player.pause();
       sceneVideo.classList.remove('active');
       sceneChoice.style.display = '';
-      // Force reflow before removing fade-out
       void sceneChoice.offsetWidth;
       sceneChoice.classList.remove('fade-out');
     }
