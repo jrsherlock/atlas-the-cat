@@ -113,6 +113,12 @@
       transform: translateY(0);
     }
 
+    .choice-btn .tile-img {
+      width: 100%;
+      border-radius: 8px;
+      margin-bottom: 0.6rem;
+    }
+
     .choice-btn .icon {
       font-size: 2rem;
       display: block;
@@ -211,13 +217,13 @@
         <p>Atlas the cat sits regally in his flower pot, surveying the garden...</p>
 
         <div class="btn-row">
-          <button class="choice-btn" onclick="playVideo()">
-            <span class="icon">🦋</span>
+          <button class="choice-btn" onclick="playVideo('atlas-butterflies.mp4')">
+            <img class="tile-img" src="atlas-butterflies.png" alt="Atlas with butterflies">
             <span class="label">A Peaceful Afternoon</span>
             <span class="desc">Butterflies gently flutter about Atlas's head as he basks in the warm sun, undisturbed and content.</span>
           </button>
 
-          <button class="choice-btn" onclick="playVideo()">
+          <button class="choice-btn" onclick="playVideo('atlas-blood.mp4')">
             <span class="icon">🐇</span>
             <span class="label">An Uninvited Guest</span>
             <span class="desc">A cute little bunny hops into view. Atlas springs into action to defend the homefront!</span>
@@ -229,10 +235,7 @@
     <!-- SCENE 2: Video Player -->
     <div id="scene-video" class="scene video-screen">
       <div class="video-wrap">
-        <video id="player" playsinline webkit-playsinline>
-          <source src="atlas-blood.mp4" type="video/mp4">
-          Your browser does not support the video tag.
-        </video>
+        <video id="player" playsinline webkit-playsinline></video>
       </div>
       <button class="back-btn" onclick="goBack()">Choose again</button>
     </div>
@@ -258,8 +261,9 @@
       player.controls = true;
     });
 
-    function playVideo() {
+    function playVideo(src) {
       player.controls = false;
+      player.src = src;
       sceneChoice.classList.add('fade-out');
       setTimeout(() => {
         sceneChoice.style.display = 'none';
