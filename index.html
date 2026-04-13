@@ -3,14 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Atlas Massacre | Bunny & Cat Garden Attack</title>
+  <title>Atlas Massacre | Choose Your Adventure</title>
   <style>
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
     body {
       font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-      background: #0a0a0f;
-      color: #e8e8e8;
+      background: #1a1a2e;
+      color: #e0e0e0;
       min-height: 100vh;
       display: flex;
       flex-direction: column;
@@ -19,41 +19,136 @@
 
     header {
       text-align: center;
-      padding: 3rem 1.5rem 1.5rem;
+      padding: 2.5rem 1.5rem 0.5rem;
       max-width: 720px;
     }
 
     h1 {
-      font-size: clamp(1.6rem, 5vw, 2.6rem);
+      font-size: clamp(1.5rem, 5vw, 2.4rem);
       font-weight: 700;
       letter-spacing: -0.02em;
-      background: linear-gradient(135deg, #f97316, #ec4899, #8b5cf6);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
+      color: #f0f0f0;
     }
 
     .subtitle {
-      margin-top: 0.6rem;
-      font-size: 1.05rem;
-      color: #888;
-      font-weight: 400;
+      margin-top: 0.5rem;
+      font-size: 1rem;
+      color: #999;
     }
 
     main {
       width: 100%;
       max-width: 860px;
-      padding: 1rem 1.5rem 3rem;
+      padding: 1.5rem 1.5rem 2rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    /* --- Poster / static image --- */
+    .poster-wrap {
+      position: relative;
+      width: 100%;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 12px 40px rgba(0,0,0,0.5);
+    }
+
+    #poster {
+      display: block;
+      width: 100%;
+      height: auto;
+      background: #000;
+    }
+
+    /* --- Choice screen --- */
+    .choices {
+      margin-top: 2rem;
+      text-align: center;
+      width: 100%;
+    }
+
+    .choices h2 {
+      font-size: clamp(1.1rem, 3.5vw, 1.5rem);
+      font-weight: 600;
+      color: #d0d0d0;
+      margin-bottom: 0.4rem;
+    }
+
+    .choices p {
+      color: #888;
+      font-size: 0.95rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .btn-row {
+      display: flex;
+      gap: 1.2rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .choice-btn {
+      flex: 1 1 260px;
+      max-width: 380px;
+      padding: 1.4rem 1.6rem;
+      border: 2px solid rgba(255,255,255,0.1);
+      border-radius: 12px;
+      background: rgba(255,255,255,0.04);
+      color: #e0e0e0;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      text-align: left;
+      font-family: inherit;
+    }
+
+    .choice-btn:hover {
+      border-color: rgba(255,255,255,0.25);
+      background: rgba(255,255,255,0.08);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+    }
+
+    .choice-btn:active {
+      transform: translateY(0);
+    }
+
+    .choice-btn .icon {
+      font-size: 2rem;
+      display: block;
+      margin-bottom: 0.5rem;
+    }
+
+    .choice-btn .label {
+      font-size: 1.05rem;
+      font-weight: 600;
+      display: block;
+      margin-bottom: 0.3rem;
+    }
+
+    .choice-btn .desc {
+      font-size: 0.85rem;
+      color: #999;
+      line-height: 1.4;
+    }
+
+    /* --- Video screen (hidden initially) --- */
+    .video-screen {
+      display: none;
+      width: 100%;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .video-screen.active {
+      display: flex;
     }
 
     .video-wrap {
-      position: relative;
+      width: 100%;
       border-radius: 12px;
       overflow: hidden;
-      box-shadow:
-        0 0 0 1px rgba(255,255,255,0.06),
-        0 20px 60px rgba(0,0,0,0.5),
-        0 0 80px rgba(139,92,246,0.08);
+      box-shadow: 0 12px 40px rgba(0,0,0,0.5);
     }
 
     video {
@@ -63,43 +158,131 @@
       background: #000;
     }
 
+    .back-btn {
+      margin-top: 1.5rem;
+      padding: 0.7rem 1.6rem;
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 8px;
+      background: transparent;
+      color: #aaa;
+      font-size: 0.9rem;
+      font-family: inherit;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .back-btn:hover {
+      border-color: rgba(255,255,255,0.3);
+      color: #e0e0e0;
+    }
+
+    /* --- Fade transitions --- */
+    .scene { transition: opacity 0.4s ease; }
+    .scene.fade-out { opacity: 0; pointer-events: none; }
+
     footer {
       margin-top: auto;
       padding: 2rem 1.5rem;
       text-align: center;
       font-size: 0.85rem;
-      color: #555;
+      color: #444;
     }
 
-    footer a {
-      color: #8b5cf6;
-      text-decoration: none;
-    }
-
-    footer a:hover {
-      text-decoration: underline;
-    }
+    footer a { color: #7c7cba; text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
   </style>
 </head>
 <body>
 
+  <!-- Hidden video used to capture a poster frame -->
+  <video id="src-video" src="atlas.mp4" muted preload="auto" style="display:none;"></video>
+
   <header>
-    <h1>Bunny & Cat: Garden Attack</h1>
-    <p class="subtitle">An animated short about an unlikely duo defending their garden</p>
+    <h1>The Atlas Chronicles</h1>
+    <p class="subtitle">A choose-your-own-adventure experience</p>
   </header>
 
   <main>
-    <div class="video-wrap">
-      <video controls autoplay muted loop playsinline>
-        <source src="Bunny_and_Cat_Garden_Attack_Video.mp4" type="video/mp4">
-        Your browser does not support the video tag.
-      </video>
+    <!-- SCENE 1: Poster + Choices -->
+    <div id="scene-choice" class="scene">
+      <div class="poster-wrap">
+        <canvas id="poster"></canvas>
+      </div>
+
+      <div class="choices">
+        <h2>What happens next?</h2>
+        <p>Atlas the cat sits regally in his flower pot, surveying the garden...</p>
+
+        <div class="btn-row">
+          <button class="choice-btn" onclick="playVideo()">
+            <span class="icon">🦋</span>
+            <span class="label">A Peaceful Afternoon</span>
+            <span class="desc">Butterflies gently flutter about Atlas's head as he basks in the warm sun, undisturbed and content.</span>
+          </button>
+
+          <button class="choice-btn" onclick="playVideo()">
+            <span class="icon">🐇</span>
+            <span class="label">An Uninvited Guest</span>
+            <span class="desc">A cute little bunny hops into view. Atlas springs into action to defend the homefront!</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- SCENE 2: Video Player -->
+    <div id="scene-video" class="scene video-screen">
+      <div class="video-wrap">
+        <video id="player" controls playsinline>
+          <source src="atlas.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+      </div>
+      <button class="back-btn" onclick="goBack()">Choose again</button>
     </div>
   </main>
 
   <footer>
     <p>View on <a href="https://github.com/jrsherlock/atlas-massacre">GitHub</a></p>
   </footer>
+
+  <script>
+    const srcVideo = document.getElementById('src-video');
+    const canvas = document.getElementById('poster');
+    const ctx = canvas.getContext('2d');
+    const sceneChoice = document.getElementById('scene-choice');
+    const sceneVideo = document.getElementById('scene-video');
+    const player = document.getElementById('player');
+
+    // Capture first frame as poster image
+    srcVideo.addEventListener('loadeddata', () => {
+      srcVideo.currentTime = 0.5;
+    });
+
+    srcVideo.addEventListener('seeked', () => {
+      canvas.width = srcVideo.videoWidth;
+      canvas.height = srcVideo.videoHeight;
+      ctx.drawImage(srcVideo, 0, 0, canvas.width, canvas.height);
+    });
+
+    function playVideo() {
+      sceneChoice.classList.add('fade-out');
+      setTimeout(() => {
+        sceneChoice.style.display = 'none';
+        sceneVideo.classList.add('active');
+        player.currentTime = 0;
+        player.play();
+      }, 400);
+    }
+
+    function goBack() {
+      player.pause();
+      sceneVideo.classList.remove('active');
+      sceneChoice.style.display = '';
+      // Force reflow before removing fade-out
+      void sceneChoice.offsetWidth;
+      sceneChoice.classList.remove('fade-out');
+    }
+  </script>
 
 </body>
 </html>
