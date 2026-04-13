@@ -229,7 +229,7 @@
     <!-- SCENE 2: Video Player -->
     <div id="scene-video" class="scene video-screen">
       <div class="video-wrap">
-        <video id="player" controls playsinline>
+        <video id="player" playsinline webkit-playsinline>
           <source src="atlas-blood.mp4" type="video/mp4">
           Your browser does not support the video tag.
         </video>
@@ -247,7 +247,19 @@
     const sceneVideo = document.getElementById('scene-video');
     const player = document.getElementById('player');
 
+    // Tap video to pause/play
+    player.addEventListener('click', () => {
+      if (player.paused) player.play();
+      else player.pause();
+    });
+
+    // Show native controls once video ends so user can replay
+    player.addEventListener('ended', () => {
+      player.controls = true;
+    });
+
     function playVideo() {
+      player.controls = false;
       sceneChoice.classList.add('fade-out');
       setTimeout(() => {
         sceneChoice.style.display = 'none';
@@ -259,6 +271,7 @@
 
     function goBack() {
       player.pause();
+      player.controls = false;
       sceneVideo.classList.remove('active');
       sceneChoice.style.display = '';
       void sceneChoice.offsetWidth;
