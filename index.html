@@ -91,7 +91,7 @@
     .choice-btn {
       flex: 1 1 260px;
       max-width: 380px;
-      padding: 1.4rem 1.6rem;
+      padding: 0.9rem 1rem;
       border: 2px solid rgba(255,255,255,0.1);
       border-radius: 12px;
       background: rgba(255,255,255,0.04);
@@ -100,6 +100,9 @@
       transition: all 0.25s ease;
       text-align: left;
       font-family: inherit;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
     }
 
     .choice-btn:hover {
@@ -114,26 +117,27 @@
     }
 
     .choice-btn .tile-img {
-      width: 100%;
+      width: 80px;
+      height: 80px;
+      object-fit: cover;
       border-radius: 8px;
-      margin-bottom: 0.6rem;
+      flex-shrink: 0;
     }
 
-    .choice-btn .icon {
-      font-size: 2rem;
-      display: block;
-      margin-bottom: 0.5rem;
+    .choice-btn .text {
+      flex: 1;
+      min-width: 0;
     }
 
     .choice-btn .label {
       font-size: 1.05rem;
       font-weight: 600;
       display: block;
-      margin-bottom: 0.3rem;
+      margin-bottom: 0.25rem;
     }
 
     .choice-btn .desc {
-      font-size: 0.85rem;
+      font-size: 0.82rem;
       color: #999;
       line-height: 1.4;
     }
@@ -233,14 +237,18 @@
         <div class="btn-row">
           <button class="choice-btn" onclick="playVideo('atlas-butterflies.mp4')">
             <img class="tile-img" src="atlas-butterflies.png" alt="Atlas with butterflies">
-            <span class="label">A Peaceful Afternoon</span>
-            <span class="desc">Butterflies gently flutter about Atlas's head as he basks in the warm sun, undisturbed and content.</span>
+            <span class="text">
+              <span class="label">A Peaceful Afternoon</span>
+              <span class="desc">Butterflies gently flutter about Atlas's head as he basks in the warm sun, undisturbed and content.</span>
+            </span>
           </button>
 
           <button class="choice-btn" onclick="playVideo('atlas-blood.mp4')">
             <img class="tile-img" src="atlas-bunny.png" alt="Atlas spots a bunny">
-            <span class="label">An Uninvited Guest</span>
-            <span class="desc">A cute little bunny hops into view. Atlas springs into action to defend the homefront!</span>
+            <span class="text">
+              <span class="label">An Uninvited Guest</span>
+              <span class="desc">A cute little bunny hops into view. Atlas springs into action to defend the homefront!</span>
+            </span>
           </button>
         </div>
       </div>
